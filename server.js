@@ -72,6 +72,7 @@ body: JSON.stringify({ message: text }),
 app.post("/webhook", async (req, res) => {
 res.sendStatus(200);
 const body = req.body;
+console.log("WEBHOOK RECIBIDO:", JSON.stringify(body));
 
 if (body.object === "page" || body.object === "instagram") {
 for (const entry of body.entry || []) {
