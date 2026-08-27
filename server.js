@@ -155,6 +155,18 @@ app.post("/webhook", async (req, res) => {
             await replyToIgComment(commentId, reply);
           }
         }
+
+        // Instagram también puede mandar el mensaje de texto real por "changes"
+        // con field "messages" (en vez de entry.messaging), formato Graph API.
+        if (body.object === "instagram" && change.field === "messages") {
+          const senderId = change.value?.sender?.id;
+          const text = change.value?.message?.text;
+          const isOwnMessage = senderId === entry.id;
+          if (senderId && text && !isOwnMessage) {
+            const reply = await askAI(text);
+            await sendInstagram(senderId, reply);
+          }
+        }
       }
     }
   }
