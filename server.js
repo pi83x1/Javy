@@ -3,12 +3,14 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-const PAGE_TOKEN = process.env.PAGE_TOKEN;   // token de página, sirve para Messenger
-const IG_TOKEN = process.env.IG_TOKEN;       // token de Instagram (cuenta essenconflavi)
-const WA_TOKEN = process.env.WA_TOKEN;       // WhatsApp Cloud API
-const WA_PHONE_ID = process.env.WA_PHONE_ID;
-const GEMINI_KEY = process.env.GEMINI_KEY;   // gratis en ai.google.dev
+// .trim() por si Render guarda un espacio o salto de línea de más al pegar.
+const clean = (v) => (v || "").trim();
+const VERIFY_TOKEN = clean(process.env.VERIFY_TOKEN);
+const PAGE_TOKEN = clean(process.env.PAGE_TOKEN);   // token de página, sirve para Messenger
+const IG_TOKEN = clean(process.env.IG_TOKEN);       // token de Instagram (cuenta essenconflavi)
+const WA_TOKEN = clean(process.env.WA_TOKEN);       // WhatsApp Cloud API
+const WA_PHONE_ID = clean(process.env.WA_PHONE_ID);
+const GEMINI_KEY = clean(process.env.GEMINI_KEY);   // gratis en ai.google.dev
 
 const SYSTEM_PROMPT = `Sos el asistente virtual de Essen con Flavia, una consultora de productos Essen (línea de cocina). Respondé de forma breve, cercana y útil a los mensajes de clientes en redes sociales. Si no sabés algo puntual (precio exacto, stock), decí que Flavia lo confirma a la brevedad.`;
 
