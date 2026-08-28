@@ -6,7 +6,6 @@ app.use(express.json());
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PAGE_TOKEN = process.env.PAGE_TOKEN;   // token de página, sirve para Messenger
 const IG_TOKEN = process.env.IG_TOKEN;       // token de Instagram (cuenta essenconflavi)
-const IG_USER_ID = process.env.IG_USER_ID;   // 17841458552680353
 const WA_TOKEN = process.env.WA_TOKEN;       // WhatsApp Cloud API
 const WA_PHONE_ID = process.env.WA_PHONE_ID;
 const GEMINI_KEY = process.env.GEMINI_KEY;   // gratis en ai.google.dev
@@ -70,7 +69,7 @@ async function sendMessenger(recipientId, text) {
 async function sendInstagram(recipientId, text) {
   return callAPI(
     "INSTAGRAM",
-    `https://graph.facebook.com/v20.0/${IG_USER_ID}/messages?access_token=${IG_TOKEN}`,
+    `https://graph.instagram.com/v21.0/me/messages?access_token=${IG_TOKEN}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,7 +108,7 @@ async function replyToFbComment(commentId, text) {
 async function replyToIgComment(commentId, text) {
   return callAPI(
     "IG_COMMENT",
-    `https://graph.facebook.com/v20.0/${commentId}/replies?access_token=${IG_TOKEN}`,
+    `https://graph.instagram.com/v21.0/${commentId}/replies?access_token=${IG_TOKEN}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
